@@ -5,8 +5,7 @@ Create multiple sliders with [swipe.js by Brad Birdsall](https://github.com/brad
 
 This module lets you create multiple sliders and then call them using their id and the modules plugin. You just drop a folder in the swipe folder and choose that as your sliders source.
 
-Usage
-------
+### Usage
 
 Suggested HTML markup using all the plugins helper keys.
 
@@ -33,6 +32,8 @@ window.onload = function() {
 {{ /swipe:slider }}
 ```
 
+**side note**: If you plan on using the assets plugin or minifying and concatenating all your js files, go ahead and ignore the {{ source }} and just add your js in the footer as you would normally.
+
 CSS styles. These can be modified to suit your needs. But this is the basic setup from the repos readme file.
 
 ```css
@@ -56,14 +57,12 @@ CSS styles. These can be modified to suit your needs. But this is the basic setu
 }
 ```
 
-What's in the plugin
----------------------
+### Usings the {{ script }} key
 
-In order to keep the HTML small, you can just use the built in script that the plugin returns.
+In order to keep the HTML small, you can just use the built in script that the plugin returns. This setup requires you to use the prefered html with `slide_{{id}}` set correctly.
 
 ```php
-// a default setup for the plugin
-// this setup requires you to use the prefered html with `slide_{{id}}` set correctly
+// currently in the plugin.php file
 $swipe['script'] = "window.swipe{$swipe[id]} = new Swipe(document.getElementById('slider_{$swipe[id]}'), {
   startSlide: {$swipe[startslide]},
   speed: {$swipe[speed]},
@@ -73,6 +72,8 @@ $swipe['script'] = "window.swipe{$swipe[id]} = new Swipe(document.getElementById
   stopPropagation: {$swipe[stoppropagation]}
 });";
 ```
+
+### License
 
 (The MIT License)
 
