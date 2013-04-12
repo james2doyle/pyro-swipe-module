@@ -34,7 +34,7 @@ window.onload = function() {
 
 **side note**: If you plan on using the assets plugin or minifying and concatenating all your js files, go ahead and ignore the {{ source }} and just add your js in the footer as you would normally.
 
-CSS styles. These can be modified to suit your needs. But this is the basic setup from the repos readme file.
+CSS styles. These can be modified to suit your needs. But this is the basic setup from the [repos readme file](https://github.com/bradbirdsall/Swipe/blob/master/README.md).
 
 ```css
 .swipe {
