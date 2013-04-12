@@ -59,7 +59,7 @@ CSS styles. These can be modified to suit your needs. But this is the basic setu
 
 ### Usings the {{ script }} key
 
-In order to keep the HTML small, you can just use the built in script that the plugin returns. This setup requires you to use the prefered html with `slide_{{id}}` set correctly.
+In order to keep the HTML small, or to just be lazy, you can just use the built in script that the plugin returns. It just sets up everything in its place. But, this setup requires you to use the prefered html with `slide_{{id}}` set correctly.
 
 ```php
 // currently in the plugin.php file
