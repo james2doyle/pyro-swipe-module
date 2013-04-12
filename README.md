@@ -36,7 +36,6 @@ window.onload = function() {
 CSS styles. These can be modified to suit your needs. But this is the basic setup from the repos readme file.
 
 ```css
-<style>
 .swipe {
   overflow: hidden;
   visibility: hidden;
@@ -55,7 +54,6 @@ CSS styles. These can be modified to suit your needs. But this is the basic setu
   max-width: 100%;
   height: auto;
 }
-</style>
 ```
 
 What's in the plugin
