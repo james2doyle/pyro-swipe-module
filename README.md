@@ -1,9 +1,9 @@
 pyro-swipe-module
 =================
 
-Create multiple sliders with [swipe.js by Brad Birdsall](https://github.com/bradbirdsall/Swipe). Swipe is great because it is lightweight, framework-independent(no-jquery) and touch-capable.
+Create multiple sliders with [swipe.js by Brad Birdsall](https://github.com/bradbirdsall/Swipe). Swipe is great because it is lightweight, framework-independent(no jQuery) and touch-capable.
 
-This module lets you create multiple sliders and then call them using their id and the modules plugin. You just drop a folder in the swipe folder and choose that as your sliders source.
+This module lets you create multiple sliders and then call them using their id and the modules plugin. You just drop a folder in the swipe directory and choose that as your sliders source folder.
 
 ### Usage
 
