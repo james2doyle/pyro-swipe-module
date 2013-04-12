@@ -73,6 +73,11 @@ $swipe['script'] = "window.swipe{$swipe[id]} = new Swipe(document.getElementById
 });";
 ```
 
+### Todo
+
+* Add pagination option
+* Add left-right controls option
+
 ### License
 
 (The MIT License)
