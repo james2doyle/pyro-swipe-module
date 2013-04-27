@@ -3,6 +3,7 @@
 $lang['swipe:success']			=	'It worked';
 $lang['swipe:error']			=	'It didn\'t work';
 $lang['swipe:no_items']		=	'No Items';
+$lang['swipe:no_folders']   = 'No folders in swipe directory';
 
 //page titles
 $lang['swipe:create']			=	'Create Item';
