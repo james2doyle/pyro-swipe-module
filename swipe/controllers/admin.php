@@ -92,27 +92,33 @@ class Admin extends Admin_Controller
 			if($this->swipe_m->create($this->input->post()))
 			{
 				// All good...
-				$this->session->set_flashdata('success', lang('swipe.success'));
+				$this->session->set_flashdata('success', lang('swipe:success'));
 				redirect('admin/swipe');
 			}
 			// Something went wrong. Show them an error
 			else
 			{
-				$this->session->set_flashdata('error', lang('swipe.error'));
+				$this->session->set_flashdata('error', lang('swipe:error'));
 				redirect('admin/swipe/create');
 			}
 		}
 		$swipe->data = new StdClass();
 		$folder = $this->file_folders_m->get_by('name', 'swipe');
 		$folders = Files::folder_contents($folder->id);
-		$swipe->data->folders = array_for_select($folders['data']['folder'], 'id', 'name');
+
+		if (count($folders['data']['folder']) > 0) {
+			$swipe->data->folders = array_for_select($folders['data']['folder'], 'id', 'name');
+		} else {
+			$swipe->data->folders = array('none' => lang('swipe:no_folders'));
+		}
+
 		foreach ($this->item_validation_rules AS $rule)
 		{
 			$swipe->data->{$rule['field']} = $this->input->post($rule['field']);
 		}
 		$this->_form_data();
 		// Build the view using sample/views/admin/form.php
-		$this->template->title($this->module_details['name'], lang('swipe.new_item'))
+		$this->template->title($this->module_details['name'], lang('swipe:new_item'))
 		->build('admin/form', $swipe->data);
 	}
 
@@ -124,6 +130,12 @@ class Admin extends Admin_Controller
 		$folder = $this->file_folders_m->get_by('name', 'swipe');
 		$folders = Files::folder_contents($folder->id);
 		$this->data->folders = array_for_select($folders['data']['folder'], 'id', 'name');
+
+		if (count($folders['data']['folder']) > 0) {
+			$this->data->folders = array_for_select($folders['data']['folder'], 'id', 'name');
+		} else {
+			$this->data->folders = array('none' => lang('swipe:no_folders'));
+		}
 
 		// Set the validation rules from the array above
 		$this->form_validation->set_rules($this->item_validation_rules);
@@ -139,21 +151,21 @@ class Admin extends Admin_Controller
 			if($this->swipe_m->edit($id, $this->input->post()))
 			{
 				// All good...
-				$this->session->set_flashdata('success', lang('swipe.success'));
+				$this->session->set_flashdata('success', lang('swipe:success'));
 				redirect('admin/swipe');
 			}
 			// Something went wrong. Show them an error
 			else
 			{
-				$this->session->set_flashdata('error', lang('swipe.error'));
+				$this->session->set_flashdata('error', lang('swipe:error'));
 				redirect('admin/swipe/create');
 			}
 		}
 		// starting point for file uploads
 		// $this->data->fileinput = json_decode($this->data->fileinput);
-		$this->_form_data();
+		// $this->_form_data();
 		// Build the view using sample/views/admin/form.php
-		$this->template->title($this->module_details['name'], lang('swipe.edit'))
+		$this->template->title($this->module_details['name'], lang('swipe:edit'))
 		->build('admin/form', $this->data);
 	}
 
