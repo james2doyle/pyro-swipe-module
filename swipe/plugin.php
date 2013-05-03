@@ -35,19 +35,24 @@ class Plugin_swipe extends Plugin
 		// probably could be done better but hey thats what forks are for
 		$path = explode('/addons/', dirname(dirname(__FILE__)));
 		$this->load->model('swipe/swipe_m');
+		$this->lang->load('swipe');
 		$this->load->library('files/files');
 		$swipe = (array)$this->swipe_m->get($id);
-		// path to swipe javascript file
-		$swipe['source'] = BASE_URL.'addons/'.$path[1].'/swipe/js/swipe.min.js';
-		$swipe['script'] = "window.swipe{$swipe[id]} = new Swipe(document.getElementById('slider_{$swipe[id]}'), {
-			startSlide: {$swipe[startslide]},
-			speed: {$swipe[speed]},
-			auto: {$swipe[auto]},
-			continuous: {$swipe[continuous]},
-			disableScroll: {$swipe[disablescroll]},
-			stopPropagation: {$swipe[stoppropagation]}
-		});";
-		return $swipe;
+		if (count($swipe) > 0) {
+			// path to swipe javascript file
+			$swipe['source'] = BASE_URL.'addons/'.$path[1].'/swipe/js/swipe.min.js';
+			$swipe['script'] = "window.swipe{$swipe[id]} = new Swipe(document.getElementById('slider_{$swipe[id]}'), {
+				startSlide: {$swipe[startslide]},
+				speed: {$swipe[speed]},
+				auto: {$swipe[auto]},
+				continuous: {$swipe[continuous]},
+				disableScroll: {$swipe[disablescroll]},
+				stopPropagation: {$swipe[stoppropagation]}
+			});";
+			return $swipe;
+		} else {
+			return lang('swipe:no_items');
+		}
 	}
 }
 
