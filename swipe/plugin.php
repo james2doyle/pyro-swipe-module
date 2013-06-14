@@ -33,14 +33,14 @@ class Plugin_swipe extends Plugin
 		$id = (int)$this->attribute('id');
 		// figure out if this is in the default or shared_addons
 		// probably could be done better but hey thats what forks are for
-		$path = explode('/addons/', dirname(dirname(__FILE__)));
+		$path = 'modules/swipe/js/swipe.min.js';
 		$this->load->model('swipe/swipe_m');
 		$this->lang->load('swipe');
 		$this->load->library('files/files');
 		$swipe = (array)$this->swipe_m->get($id);
 		if (count($swipe) > 0) {
 			// path to swipe javascript file
-			$swipe['source'] = BASE_URL.'addons/'.$path[1].'/swipe/js/swipe.min.js';
+			is_file(ADDONPATH.$path) ? $swipe['source'] = BASE_URL.ADDONPATH.$path : $swipe['source'] = BASE_URL.SHARED_ADDONPATH.$path;
 			$swipe['script'] = "window.swipe{$swipe[id]} = new Swipe(document.getElementById('slider_{$swipe[id]}'), {
 				startSlide: {$swipe[startslide]},
 				speed: {$swipe[speed]},
