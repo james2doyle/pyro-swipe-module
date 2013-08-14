@@ -93,6 +93,10 @@ class Module_Swipe extends Module {
 				'constraint' => '1',
 				'default' => 0
 				),
+			'data' => array(
+				'type' => 'TEXT',
+				'null' => true
+				),
 			);
 
 		// $swipe_setting = array(
