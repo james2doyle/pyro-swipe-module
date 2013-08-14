@@ -34,7 +34,8 @@ class swipe_m extends MY_Model {
 			'auto' => ($input['auto'] !== '') ? $input['auto']: 3000,
 			'continuous' => $input['continuous'],
 			'disablescroll' => $input['disablescroll'],
-			'stoppropagation' => $input['stoppropagation']
+			'stoppropagation' => $input['stoppropagation'],
+			'data' => json_encode($input['titles'])
 			);
 
 		return $this->db->insert('swipe', $to_insert);
@@ -52,7 +53,8 @@ class swipe_m extends MY_Model {
 			'auto' => ($input['auto'] !== '') ? $input['auto']: 3000,
 			'continuous' => $input['continuous'],
 			'disablescroll' => $input['disablescroll'],
-			'stoppropagation' => $input['stoppropagation']
+			'stoppropagation' => $input['stoppropagation'],
+			'data' => json_encode($input['titles'])
 			);
 
 		// if ($fileinput['status']) {
