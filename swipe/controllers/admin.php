@@ -59,6 +59,10 @@ class Admin extends Admin_Controller
 			array(
 				'field' => 'stoppropagation',
 				'label' => 'Stop Propagation'
+				),
+			array(
+				'field' => 'data',
+				'label' => 'Data'
 				)
 			);
 
@@ -163,16 +167,22 @@ class Admin extends Admin_Controller
 		}
 		// starting point for file uploads
 		// $this->data->fileinput = json_decode($this->data->fileinput);
-		// $this->_form_data();
+		$this->_form_data($this->data);
 		// Build the view using sample/views/admin/form.php
 		$this->template->title($this->module_details['name'], lang('swipe:edit'))
 		->build('admin/form', $this->data);
 	}
 
-	public function _form_data()
+	public function _form_data($data)
 	{
-		// $this->load->model('pages/page_m');
-		// $this->template->pages = array_for_select($this->page_m->get_page_tree(), 'id', 'title');
+		$folder = Files::folder_contents($data->folder);
+		$values = json_decode($data->data);
+		$files = $folder['data']['file'];
+		$template = '';
+		for ($i=0; $i < count($files); $i++) {
+			$template .= '<li><label for="titles[]">Title For '.$files[$i]->name.'</label><div class="input">'.form_input('titles[]', $values[$i]).'</div></li>';
+		}
+		$this->template->image_inputs = $template;
 	}
 
 	public function delete($id = 0)
@@ -190,6 +200,7 @@ class Admin extends Admin_Controller
 		}
 		redirect('admin/swipe');
 	}
+
 	public function order() {
 		$items = $this->input->post('items');
 		$i = 0;
@@ -199,4 +210,19 @@ class Admin extends Admin_Controller
 			$i++;
 		}
 	}
+
+	public function image_count($folderid)
+	{
+		$folderid = $this->input->post('folderid');
+		$folder = Files::folder_contents($folderid);
+		$files = $folder['data']['file'];
+		$count = count($files);
+		$template = '';
+		foreach ($files as $file) {
+			$template .= '<li><label for="titles[]">Title For '.$file->name.'</label><div class="input">'.form_input('titles[]', $file->name).'</div></li>';
+		}
+		echo $template;
+		return true;
+	}
+
 }
