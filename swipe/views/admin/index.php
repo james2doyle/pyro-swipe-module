@@ -22,7 +22,7 @@
 					</td>
 				</tr>
 			</tfoot>
-			<tbody>
+			<tbody class="ui-sortable-container">
 				<?php foreach( $swipe as $item ): ?>
 				<tr id="item_<?php echo $item->id; ?>">
 					<td><?php echo form_checkbox('action_to[]', $item->id); ?></td>
