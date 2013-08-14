@@ -37,7 +37,8 @@ class swipe_m extends MY_Model {
 			'stoppropagation' => $input['stoppropagation'],
 			'data' => json_encode($input['titles'])
 			);
-
+		// clear the cache because shits changed
+		$this->pyrocache->delete('swipe_cache');
 		return $this->db->insert('swipe', $to_insert);
 	}
 
@@ -57,9 +58,8 @@ class swipe_m extends MY_Model {
 			'data' => json_encode($input['titles'])
 			);
 
-		// if ($fileinput['status']) {
-		// 	$to_insert['fileinput'] = json_encode($fileinput);
-		// }
+		// clear the cache because shits changed
+		$this->pyrocache->delete('swipe_cache');
 
 		return $this->db->where('id', $id)->update('swipe', $to_insert);
 	}
