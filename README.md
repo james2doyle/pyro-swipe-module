@@ -5,6 +5,12 @@ Create multiple sliders with [swipe.js by Brad Birdsall](https://github.com/brad
 
 This module lets you create multiple sliders and then call them using their id and the modules plugin. You just drop a folder in the swipe directory and choose that as your sliders source folder.
 
+### Version 1.2 Changes
+
+I made it so that when you choose a folder of images, there is a new form text input that is generated for each image. This allows the addition of extra text, title, or alt tags.
+
+I also added caching to the plugin because it now fetches the files (images) that were chosen in the folder dropdown.
+
 ### Usage
 
 Suggested HTML markup using all the plugins helper keys.
@@ -13,18 +19,25 @@ Suggested HTML markup using all the plugins helper keys.
 <!-- the id of the slider you want -->
 {{ swipe:slider id="1" }}
 <!-- keep the slider unique with the id -->
-<div id='slider_{{id}}' class='swipe'>
-  <div class='swipe-wrap'>
-    <!-- folder key is the id of the folder -->
-    {{ files:listing folder=folder }}
-    <div><img src="{{ url:site }}files/large/{{ id }}" alt="{{ description }}"/></div>
-    {{ /files:listing }}
+<div id="slider_{{id}}" class="swipe">
+  <div class="swipe-wrap">
+    <!-- as of 1.2 the array of files is accessible -->
+    {{ files }}
+    <div class="slide">
+      <!-- an example of manually setting up the images -->
+      <img src="{{ url:site }}files/thumb/{{ id }}/768/512" alt="{{ alt_attribute }} {{ description }} {{ swipe_title }}" />
+      <!-- as of 1.2 there are titles for each slide -->
+      {{ if swipe_title != '' }}
+      <div class="slide-title">{{ swipe_title }}</div>
+      {{ endif }}
+    </div>
+    {{ /files }}
   </div>
 </div>
 <!-- source is set in plugin -->
 <script src="{{ source }}"></script>
 <script>
-window.onload = function() {
+  window.onload = function() {
   // window onload fires last... on most browsers...
   {{ script }}
 };
@@ -42,16 +55,19 @@ CSS styles. These can be modified to suit your needs. But this is the basic setu
   visibility: hidden;
   position: relative;
 }
+
 .swipe-wrap {
   overflow: hidden;
   position: relative;
 }
-.swipe-wrap > div {
-  float:left;
-  width:100%;
+
+.swipe-wrap .slide {
+  float: left;
+  width: 100%;
   position: relative;
 }
-.swipe-wrap > div img {
+
+.swipe-wrap .slide img {
   max-width: 100%;
   height: auto;
 }
