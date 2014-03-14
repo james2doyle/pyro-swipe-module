@@ -25,6 +25,12 @@ class swipe_m extends MY_Model {
 	public function create($input)
 	{
 		// $fileinput = Files::upload($this->folder->id, FALSE, 'fileinput');
+		$data = array(
+			'titles' => $input['titles'],
+			'links' => $input['links'],
+			'custom_links' => $input['custom_links']
+			);
+		$data = json_encode($data);
 		$to_insert = array(
 			// 'fileinput' => json_encode($fileinput),
 			'name' => $input['name'],
@@ -35,9 +41,8 @@ class swipe_m extends MY_Model {
 			'continuous' => $input['continuous'],
 			'disablescroll' => $input['disablescroll'],
 			'stoppropagation' => $input['stoppropagation'],
-			'data' => json_encode($input['titles'])
+			'data' => $data
 			);
-		// clear the cache because shits changed
 		$this->pyrocache->delete('swipe_cache');
 		return $this->db->insert('swipe', $to_insert);
 	}
@@ -46,6 +51,12 @@ class swipe_m extends MY_Model {
 	public function edit($id = 0, $input)
 	{
 		// $fileinput = Files::upload($this->folder->id, FALSE, 'fileinput');
+		$data = array(
+			'titles' => $input['titles'],
+			'links' => $input['links'],
+			'custom_links' => $input['custom_links']
+			);
+		$data = json_encode($data);
 		$to_insert = array(
 			'name' => $input['name'],
 			'folder' => $input['folder'],
@@ -55,10 +66,12 @@ class swipe_m extends MY_Model {
 			'continuous' => $input['continuous'],
 			'disablescroll' => $input['disablescroll'],
 			'stoppropagation' => $input['stoppropagation'],
-			'data' => json_encode($input['titles'])
+			'data' => $data
 			);
 
-		// clear the cache because shits changed
+		// if ($fileinput['status']) {
+		// 	$to_insert['fileinput'] = json_encode($fileinput);
+		// }
 		$this->pyrocache->delete('swipe_cache');
 
 		return $this->db->where('id', $id)->update('swipe', $to_insert);

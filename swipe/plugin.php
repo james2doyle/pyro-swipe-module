@@ -31,8 +31,9 @@ class Plugin_swipe extends Plugin
 	 */
 	function slider() {
 		$id = (int)$this->attribute('id');
-		if (!$data = $this->pyrocache->get('swipe_cache')) {
+		if (!$this->pyrocache->get('swipe_cache')) {
 			$this->load->model('swipe/swipe_m');
+			// $this->load->model('pages/page_m');
 			$this->lang->load('swipe');
 			$this->load->library('files/files');
 			$swipe = $this->swipe_m->get($id);
@@ -42,9 +43,16 @@ class Plugin_swipe extends Plugin
 		} else {
 			$swipe = $this->pyrocache->get('swipe_cache');
 		}
-		$titles = json_decode($swipe->data);
+		$values = json_decode($swipe->data);
 		for ($i=0; $i < count($swipe->files); $i++) {
-			$swipe->files[$i]->swipe_title = $titles[$i];
+			$swipe->files[$i]->swipe_title = $values->titles[$i];
+			if (!empty($values->custom_links[$i])) {
+				$link = $values->custom_links[$i];
+			} else {
+				$page = $this->pyrocache->model('page_m', 'get', array($values->links[$i], false));
+				$link = $page->uri;
+			}
+			$swipe->files[$i]->swipe_link = $link;
 		}
 		if (count($swipe) > 0) {
 			// path to swipe javascript file

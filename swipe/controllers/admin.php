@@ -175,12 +175,13 @@ class Admin extends Admin_Controller
 
 	public function _form_data($data)
 	{
+		$this->load->model('pages/page_m');
 		$folder = Files::folder_contents($data->folder);
 		$values = json_decode($data->data);
 		$files = $folder['data']['file'];
 		$template = '';
 		for ($i=0; $i < count($files); $i++) {
-			$template .= '<li><label for="titles[]">Title For '.$files[$i]->name.'</label><div class="input">'.form_input('titles[]', $values[$i]).'</div></li>';
+			$template .= '<li><label for="titles[]">Title For '.$files[$i]->name.'</label><div class="input">'.form_input('titles[]', $values->titles[$i]).'</div><label for="links[]">Link For '.$files[$i]->name.'</label><div class="input">'.form_dropdown('links[]', array(false => 'None')+array_for_select($this->page_m->get_all(), 'id', 'title'), $values->links[$i]).'</div><div class="input">'.form_input('custom_links[]', $values->custom_links[$i], 'placeholder="Custom URL"').'</div></li>';
 		}
 		$this->template->image_inputs = $template;
 	}
@@ -219,7 +220,7 @@ class Admin extends Admin_Controller
 		$count = count($files);
 		$template = '';
 		foreach ($files as $file) {
-			$template .= '<li><label for="titles[]">Title For '.$file->name.'</label><div class="input">'.form_input('titles[]', $file->name).'</div></li>';
+			$template .= '<li><label for="titles[]">Title For '.$file->name.'</label><div class="input">'.form_input('titles[]', $file->name).'</div><label for="links[]">Link For '.$file->name.'</label><div class="input">'.form_input('links[]', '').'</div></li>';
 		}
 		echo $template;
 		return true;
