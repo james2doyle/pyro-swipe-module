@@ -8,45 +8,43 @@
 		<div class="form_inputs">
 			<ul class="fields">
 				<li>
-					<label for="name">Name</label>
+					<label for="name"><?php echo lang('swipe:name') ?><small><?php echo lang('swipe:name:small') ?></small></label>
 					<div class="input"><?php echo form_input('name', $name, 'class="width-15"'); ?></div>
 				</li>
 				<li>
-					<label for="folder">Folder</label>
+					<label for="folder"><?php echo lang('swipe:folder') ?><small><?php echo lang('swipe:folder:small') ?></small></label>
 					<div class="input"><?php echo form_dropdown('folder', $folders, $folder); ?></div>
 				</li>
 				<li>
-					<label for="startslide">Start Slide</label>
+					<label for="startslide"><?php echo lang('swipe:startslide') ?><small><?php echo lang('swipe:startslide:small') ?></small></label>
 					<div class="input"><?php echo form_input('startslide', $startslide, 'class="width-15"'); ?></div>
 				</li>
 				<li>
-					<label for="speed">Speed</label>
+					<label for="speed"><?php echo lang('swipe:speed') ?><small><?php echo lang('swipe:speed:small') ?></small></label>
 					<div class="input"><?php echo form_input('speed', $speed, 'class="width-15"'); ?></div>
 				</li>
 				<li>
-					<label for="auto">Auto</label>
+					<label for="auto"><?php echo lang('swipe:auto') ?><small><?php echo lang('swipe:speed:small') ?></small></label>
 					<div class="input"><?php echo form_input('auto', $auto, 'class="width-15"'); ?></div>
 				</li>
 				<li>
-					<label for="continuous">Continuous</label>
+					<label for="continuous"><?php echo lang('swipe:continuous') ?></label>
 					<div class="input"><?php echo form_dropdown('continuous', array(0 => 'false', 1 => 'true'), (is_null($continuous)) ? 1: $continuous); ?></div>
 				</li>
 				<li>
-					<label for="disablescroll">Disable Scroll</label>
+					<label for="disablescroll"><?php echo lang('swipe:disablescroll') ?></label>
 					<div class="input"><?php echo form_dropdown('disablescroll', array(0 => 'false', 1 => 'true'), $disablescroll); ?></div>
 				</li>
 				<li>
-					<label for="stoppropagation">Stop Propagation</label>
+					<label for="stoppropagation"><?php echo lang('swipe:stoppropagation') ?></label>
 					<div class="input"><?php echo form_dropdown('stoppropagation', array(0 => 'false', 1 => 'true'), $stoppropagation); ?></div>
 				</li>
 				<fieldset>
-					<legend>Slide Titles</legend>
-					<small>Blank means there will be no title</small>
+					<legend><?php echo lang('swipe:fieldset') ?></legend>
+					<small><?php echo lang('swipe:fieldset:small') ?></small>
 					<hr>
 					<ul id="slide-titles">
-						<?php if($this->method == 'edit'){
-							echo $image_inputs;
-						} ?>
+						<?php echo $image_inputs; ?>
 					</ul>
 				</fieldset>
 			</ul>

@@ -11,6 +11,7 @@
 class Admin extends Admin_Controller
 {
 	protected $section = 'items';
+	private $pages;
 
 	public function __construct()
 	{
@@ -20,6 +21,9 @@ class Admin extends Admin_Controller
 		$this->load->model('swipe_m');
 		$this->load->library('form_validation');
 		$this->lang->load('swipe');
+
+		$this->load->model('pages/page_m');
+		$this->pages = array(false => lang('swipe:none')) + array_for_select($this->page_m->get_all(), 'id', 'title');
 
 		$this->load->library('files/files');
 		$this->load->model('files/file_folders_m');
@@ -120,7 +124,7 @@ class Admin extends Admin_Controller
 		{
 			$swipe->data->{$rule['field']} = $this->input->post($rule['field']);
 		}
-		$this->_form_data();
+		$this->_form_data($swipe->data, true);
 		// Build the view using sample/views/admin/form.php
 		$this->template->title($this->module_details['name'], lang('swipe:new_item'))
 		->build('admin/form', $swipe->data);
@@ -173,15 +177,14 @@ class Admin extends Admin_Controller
 		->build('admin/form', $this->data);
 	}
 
-	public function _form_data($data)
+	public function _form_data($data, $create = false)
 	{
-		$this->load->model('pages/page_m');
 		$folder = Files::folder_contents($data->folder);
 		$values = json_decode($data->data);
 		$files = $folder['data']['file'];
 		$template = '';
 		for ($i=0; $i < count($files); $i++) {
-			$template .= '<li><label for="titles[]">Title For '.$files[$i]->name.'</label><div class="input">'.form_input('titles[]', $values->titles[$i]).'</div><label for="links[]">Link For '.$files[$i]->name.'</label><div class="input">'.form_dropdown('links[]', array(false => 'None')+array_for_select($this->page_m->get_all(), 'id', 'title'), $values->links[$i]).'</div><div class="input">'.form_input('custom_links[]', $values->custom_links[$i], 'placeholder="Custom URL"').'</div></li>';
+			$template .= '<li><label for="titles[]">'.lang('swipe:title').$files[$i]->name.'</label><div class="input">'.form_input('titles[]', $values->titles[$i]).'</div><label for="links[]">'.lang('swipe:link').$files[$i]->name.'</label><div class="input">'.form_dropdown('links[]', $this->pages, $values->links[$i]).'</div><div class="input">'.form_input('custom_links[]', $values->custom_links[$i], 'placeholder="'.lang('swipe:url').'"').'</div></li>';
 		}
 		$this->template->image_inputs = $template;
 	}
@@ -220,7 +223,7 @@ class Admin extends Admin_Controller
 		$count = count($files);
 		$template = '';
 		foreach ($files as $file) {
-			$template .= '<li><label for="titles[]">Title For '.$file->name.'</label><div class="input">'.form_input('titles[]', $file->name).'</div><label for="links[]">Link For '.$file->name.'</label><div class="input">'.form_input('links[]', '').'</div></li>';
+			$template .= '<li><label for="titles[]">'.lang('swipe:title').$file->name.'</label><div class="input">'.form_input('titles[]', $file->name).'</div><label for="links[]">'.lang('swipe:link').$file->name.'</label><div class="input">'.form_dropdown('links[]', $this->pages, '').'</div><div class="input">'.form_input('custom_links[]', '', 'placeholder="'.lang('swipe:url').'"').'</div></li>';
 		}
 		echo $template;
 		return true;

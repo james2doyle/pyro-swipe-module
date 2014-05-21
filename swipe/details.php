@@ -2,7 +2,7 @@
 
 class Module_Swipe extends Module {
 
-	public $version = '1.3.0';
+	public $version = '1.1.1';
 
 	public function info()
 	{
