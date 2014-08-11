@@ -220,7 +220,7 @@ class Admin extends Admin_Controller
 		$folderid = $this->input->post('folderid');
 		$folder = Files::folder_contents($folderid);
 		$files = $folder['data']['file'];
-		$count = count($files);
+		// $count = count($files);
 		$template = '';
 		foreach ($files as $file) {
 			$template .= '<li><label for="titles[]">'.lang('swipe:title').$file->name.'</label><div class="input">'.form_input('titles[]', $file->name).'</div><label for="links[]">'.lang('swipe:link').$file->name.'</label><div class="input">'.form_dropdown('links[]', $this->pages, '').'</div><div class="input">'.form_input('custom_links[]', '', 'placeholder="'.lang('swipe:url').'"').'</div></li>';
