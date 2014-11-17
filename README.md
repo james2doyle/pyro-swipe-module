@@ -23,7 +23,7 @@ Suggested HTML markup using all the plugins helper keys.
   <div class="swipe-wrap">
     <!-- as of 1.2 the array of files is accessible -->
     {{ files }}
-    <div class="slide">
+    <div class="slide" id="slide-{{ count }}">
       <!-- an example of manually setting up the images -->
       <img src="{{ url:site }}files/thumb/{{ id }}/768/512" alt="{{ alt_attribute }} {{ description }} {{ swipe_title }}" />
       <!-- as of 1.2 there are titles for each slide -->
