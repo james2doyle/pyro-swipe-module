@@ -3,13 +3,11 @@ pyro-swipe-module
 
 Create multiple sliders with [swipe.js by Brad Birdsall](https://github.com/bradbirdsall/Swipe). Swipe is great because it is lightweight, framework-independent(no jQuery) and touch-capable.
 
-This module lets you create multiple sliders and then call them using their id and the modules plugin. You just drop a folder in the swipe directory and choose that as your sliders source folder.
+This module lets you create multiple sliders and then call them using their id and the modules plugin. You just create a new folder in the `swipe` directory in the files module, and choose that new folder as your image source folder.
 
-### Version 1.2 Changes
+The slider will then generate a form for each image. If you want to sort your images, just use the **dragging sort** in the files module.
 
-I made it so that when you choose a folder of images, there is a new form text input that is generated for each image. This allows the addition of extra text, title, or alt tags.
-
-I also added caching to the plugin because it now fetches the files (images) that were chosen in the folder dropdown.
+Slides have their own titles, and can be linked to pages on your site, or an outside URL.
 
 ### Usage
 
