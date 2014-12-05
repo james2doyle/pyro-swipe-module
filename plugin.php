@@ -38,21 +38,21 @@ class Plugin_swipe extends Plugin
 			$swipe = $this->swipe_m->get($id);
 			$files = Files::folder_contents($swipe->folder);
 			$swipe->files = $files['data']['file'];
+			$values = json_decode($swipe->data);
+			for ($i=0; $i < count($swipe->files); $i++) {
+				$swipe->files[$i]->swipe_title = $values->titles[$i];
+				if (!empty($values->custom_links[$i])) {
+					$link = $values->custom_links[$i];
+				} else {
+					$page = $this->pyrocache->model('page_m', 'get', array($values->links[$i], false));
+					$link = $page->uri;
+				}
+				$swipe->files[$i]->swipe_link = $link;
+				$swipe->files[$i]->count = $i;
+			}
 			$this->pyrocache->write($swipe, 'theme_m/swipe_cache_'.$id);
 		} else {
 			$swipe = $this->pyrocache->get('theme_m/swipe_cache_'.$id);
-		}
-		$values = json_decode($swipe->data);
-		for ($i=0; $i < count($swipe->files); $i++) {
-			$swipe->files[$i]->swipe_title = $values->titles[$i];
-			if (!empty($values->custom_links[$i])) {
-				$link = $values->custom_links[$i];
-			} else {
-				$page = $this->pyrocache->model('page_m', 'get', array($values->links[$i], false));
-				$link = $page->uri;
-			}
-			$swipe->files[$i]->swipe_link = $link;
-			$swipe->files[$i]->count = $i;
 		}
 		if (count($swipe) > 0) {
 			// path to swipe javascript file
