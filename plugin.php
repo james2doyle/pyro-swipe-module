@@ -31,16 +31,16 @@ class Plugin_swipe extends Plugin
 	 */
 	function slider() {
 		$id = (int)$this->attribute('id');
-		if (!$this->pyrocache->get('theme_m/swipe_cache')) {
+		if (!$this->pyrocache->get('theme_m/swipe_cache_'.$id)) {
 			$this->load->model('swipe/swipe_m');
 			$this->lang->load('swipe');
 			$this->load->library('files/files');
 			$swipe = $this->swipe_m->get($id);
 			$files = Files::folder_contents($swipe->folder);
 			$swipe->files = $files['data']['file'];
-			$this->pyrocache->write($swipe, 'theme_m/swipe_cache');
+			$this->pyrocache->write($swipe, 'theme_m/swipe_cache_'.$id);
 		} else {
-			$swipe = $this->pyrocache->get('theme_m/swipe_cache');
+			$swipe = $this->pyrocache->get('theme_m/swipe_cache_'.$id);
 		}
 		$values = json_decode($swipe->data);
 		for ($i=0; $i < count($swipe->files); $i++) {
