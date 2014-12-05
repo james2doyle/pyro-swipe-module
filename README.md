@@ -16,31 +16,31 @@ Suggested HTML markup using all the plugins helper keys.
 ```html
 <!-- the id of the slider you want -->
 {{ swipe:slider id="1" }}
-<!-- keep the slider unique with the id -->
-<div id="slider_{{id}}" class="swipe">
-  <div class="swipe-wrap">
-    {{ files }}
-      <div>
-        <!-- handle slides with links differently -->
-        {{ if swipe_link }}
-          <a href="{{ swipe_link }}" title="{{ swipe_title }}">
-            <img src="{{ path }}" width="1200" height="420" alt="{{ alt_attribute }} {{ description }} {{ swipe_title }}" id="slide-count-{{ count }}" />
-          </a>
-        {{ else }}
-          <img src="{{ path }}" width="1200" height="420" alt="{{ alt_attribute }} {{ description }} {{ swipe_title }}" id="slide-count-{{ count }}"/>
-        {{ endif }}
-      </div>
-    {{ /files }}
+  <!-- keep the slider unique with the id -->
+  <div id="slider_{{id}}" class="swipe">
+    <div class="swipe-wrap">
+      {{ files }}
+        <div>
+          <!-- handle slides with links differently -->
+          {{ if swipe_link }}
+            <a href="{{ swipe_link }}" title="{{ swipe_title }}">
+              <img src="{{ path }}" width="1200" height="420" alt="{{ alt_attribute }} {{ description }} {{ swipe_title }}" id="slide-count-{{ count }}" />
+            </a>
+          {{ else }}
+            <img src="{{ path }}" width="1200" height="420" alt="{{ alt_attribute }} {{ description }} {{ swipe_title }}" id="slide-count-{{ count }}"/>
+          {{ endif }}
+        </div>
+      {{ /files }}
+    </div>
   </div>
-</div>
-<!-- source is set in plugin -->
-<script src="{{ source }}"></script>
-<script>
-  window.onload = function() {
-  // window onload fires last... on most browsers...
-  {{ script }}
-};
-</script>
+  <!-- source is set in plugin -->
+  <script src="{{ source }}"></script>
+  <script>
+    window.onload = function() {
+    // window onload fires last... on most browsers...
+    {{ script }}
+  };
+  </script>
 {{ /swipe:slider }}
 ```
 
